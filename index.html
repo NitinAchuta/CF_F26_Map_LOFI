@@ -1,0 +1,202 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{padding:16px;max-width:420px;margin:0 auto}
+.topbar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.topbar input{flex:1;padding:8px 10px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary)}
+.legend{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary)}
+.dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.floor{border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);background:var(--color-background-secondary);padding:12px;position:relative}
+.section-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:4px;letter-spacing:0.04em}
+.row{display:flex;gap:6px;margin-bottom:6px}
+.booth{border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:0.5px solid transparent;transition:opacity 0.15s;padding:3px 2px;position:relative}
+.booth:hover{opacity:0.8}
+.booth .bnum{font-size:9px;font-weight:500}
+.booth .bname{font-size:8px;text-align:center;line-height:1.2;margin-top:1px}
+.b-energy{background:#B5D4F4;border-color:#378ADD;color:#0C447C}
+.b-tech{background:#CED3F0;border-color:#534AB7;color:#3C3489}
+.b-aero{background:#C0DD97;border-color:#639922;color:#27500A}
+.b-civil{background:#FAC775;border-color:#BA7517;color:#633806}
+.b-cq{background:#F5C4B3;border-color:#D85A30;color:#712B13}
+.b-empty{background:var(--color-background-primary);border-color:var(--color-border-tertiary);color:var(--color-text-tertiary)}
+.cq-badge{position:absolute;top:-4px;right:-4px;background:#D85A30;color:#fff;font-size:7px;border-radius:3px;padding:1px 3px;font-weight:500;line-height:1.3}
+.aisle{height:10px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--color-text-tertiary);letter-spacing:0.06em}
+.panel{margin-top:12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);background:var(--color-background-primary);padding:12px;display:none}
+.panel.show{display:block}
+.panel-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.panel-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.panel-row:last-child{border-bottom:none}
+.panel-key{color:var(--color-text-secondary)}
+.panel-val{color:var(--color-text-primary);font-weight:500}
+.cq-status{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-top:6px;padding:3px 7px;border-radius:var(--border-radius-md);background:#FAECE7;color:#993C1D}
+.cq-dot{width:7px;height:7px;border-radius:50%;background:#D85A30}
+.wishlist-btn{margin-top:8px;width:100%;padding:6px;font-size:12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-secondary);color:var(--color-text-primary);cursor:pointer}
+.wishlist-btn.saved{background:#EAF3DE;border-color:#639922;color:#27500A}
+.entry{font-size:10px;color:var(--color-text-tertiary);margin-top:10px;text-align:center}
+.entry-arrow{font-size:18px;margin-bottom:2px}
+.filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.chip{font-size:11px;padding:3px 9px;border-radius:99px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer}
+.chip.active{background:#E6F1FB;border-color:#378ADD;color:#0C447C}
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <input type="text" id="search" placeholder="Search company or industry..." oninput="filterBooths(this.value)">
+  </div>
+
+  <div class="filters">
+    <span class="chip active" onclick="setFilter(this,'all')">All</span>
+    <span class="chip" onclick="setFilter(this,'energy')">Energy</span>
+    <span class="chip" onclick="setFilter(this,'tech')">Tech</span>
+    <span class="chip" onclick="setFilter(this,'aero')">Aerospace</span>
+    <span class="chip" onclick="setFilter(this,'civil')">Civil</span>
+  </div>
+
+  <div class="legend">
+    <span class="leg"><span class="dot" style="background:#B5D4F4"></span>Energy</span>
+    <span class="leg"><span class="dot" style="background:#CED3F0"></span>Tech</span>
+    <span class="leg"><span class="dot" style="background:#C0DD97"></span>Aerospace</span>
+    <span class="leg"><span class="dot" style="background:#FAC775"></span>Civil</span>
+    <span class="leg"><span class="dot" style="background:#F5C4B3"></span>Virtual queue</span>
+  </div>
+
+  <div class="floor">
+    <div class="section-label">Section A</div>
+    <div class="row">
+      <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="A1" onclick="showPanel('A1','ExxonMobil','A1','Energy','PETE, MEEN','Intern, Full-time',false,true)">
+        <span class="bnum">A1</span><span class="bname">ExxonMobil</span>
+      </div>
+      <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="A2" onclick="showPanel('A2','Chevron','A2','Energy','PETE, CHEN','Intern, Co-op',false,false)">
+        <span class="bnum">A2</span><span class="bname">Chevron</span>
+      </div>
+      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="A3" onclick="showPanel('A3','Google','A3','Tech','CSCE, ECEN','Intern, Full-time',false,false)">
+        <span class="bnum">A3</span><span class="bname">Google</span>
+      </div>
+      <div class="booth b-empty" style="width:72px;height:52px" data-industry="" data-id="A4">
+        <span class="bnum" style="font-size:9px">A4</span>
+      </div>
+    </div>
+
+    <div class="aisle">— aisle —</div>
+
+    <div class="section-label">Section B</div>
+    <div class="row">
+      <div class="booth b-aero" style="width:72px;height:52px" data-industry="aero" data-id="B1" onclick="showPanel('B1','Lockheed Martin','B1','Aerospace','AERO, MEEN, ECEN','Intern, Full-time',false,false)">
+        <span class="bnum">B1</span><span class="bname">Lockheed Martin</span>
+      </div>
+      <div class="booth b-cq" style="width:72px;height:52px;position:relative" data-industry="aero" data-id="B2" onclick="showPanel('B2','NASA','B2','Aerospace','All Engineering','Intern',true,true)">
+        <span class="cq-badge">CQ</span>
+        <span class="bnum">B2</span><span class="bname">NASA</span>
+      </div>
+      <div class="booth b-civil" style="width:72px;height:52px" data-industry="civil" data-id="B3" onclick="showPanel('B3','AECOM','B3','Civil','CVEN, EVEN','Intern, Full-time',false,false)">
+        <span class="bnum">B3</span><span class="bname">AECOM</span>
+      </div>
+      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="B4" onclick="showPanel('B4','Microsoft','B4','Tech','CSCE, ECEN','Intern, Full-time',false,false)">
+        <span class="bnum">B4</span><span class="bname">Microsoft</span>
+      </div>
+    </div>
+
+    <div class="aisle">— aisle —</div>
+
+    <div class="section-label">Section C</div>
+    <div class="row">
+      <div class="booth b-civil" style="width:72px;height:52px" data-industry="civil" data-id="C1" onclick="showPanel('C1','Burns & McDonnell','C1','Civil','CVEN, MEEN','Intern, Full-time',false,false)">
+        <span class="bnum">C1</span><span class="bname">Burns & Mac</span>
+      </div>
+      <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="C2" onclick="showPanel('C2','Shell','C2','Energy','PETE, CHEN, MEEN','Co-op, Full-time',false,false)">
+        <span class="bnum">C2</span><span class="bname">Shell</span>
+      </div>
+      <div class="booth b-aero" style="width:72px;height:52px" data-industry="aero" data-id="C3" onclick="showPanel('C3','Boeing','C3','Aerospace','AERO, MEEN, ECEN','Intern, Full-time',false,true)">
+        <span class="bnum">C3</span><span class="bname">Boeing</span>
+      </div>
+      <div class="booth b-empty" style="width:72px;height:52px" data-industry="" data-id="C4">
+        <span class="bnum" style="font-size:9px">C4</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-arrow">↑</div>
+      <div>Main entrance</div>
+    </div>
+  </div>
+
+  <div class="panel" id="info-panel">
+    <div class="panel-name" id="p-name"></div>
+    <div class="panel-row"><span class="panel-key">Booth</span><span class="panel-val" id="p-booth"></span></div>
+    <div class="panel-row"><span class="panel-key">Industry</span><span class="panel-val" id="p-ind"></span></div>
+    <div class="panel-row"><span class="panel-key">Hiring majors</span><span class="panel-val" id="p-maj"></span></div>
+    <div class="panel-row"><span class="panel-key">Positions</span><span class="panel-val" id="p-pos"></span></div>
+    <div id="p-cq" style="display:none">
+      <div class="cq-status"><span class="cq-dot"></span>Virtual queue active — do not line up</div>
+    </div>
+    <button class="wishlist-btn" id="p-wish" onclick="toggleWish()">+ Save to wishlist</button>
+  </div>
+</div>
+
+<script>
+var currentId = null;
+var wished = {};
+
+function showPanel(id,name,booth,ind,maj,pos,hasCQ,isWished){
+  currentId = id;
+  document.getElementById('p-name').textContent = name;
+  document.getElementById('p-booth').textContent = booth;
+  document.getElementById('p-ind').textContent = ind;
+  document.getElementById('p-maj').textContent = maj;
+  document.getElementById('p-pos').textContent = pos;
+  document.getElementById('p-cq').style.display = hasCQ ? 'block' : 'none';
+  var wb = document.getElementById('p-wish');
+  if(wished[id]){
+    wb.textContent = 'Saved to wishlist';
+    wb.className = 'wishlist-btn saved';
+  } else {
+    wb.textContent = '+ Save to wishlist';
+    wb.className = 'wishlist-btn';
+  }
+  var panel = document.getElementById('info-panel');
+  panel.classList.add('show');
+}
+
+function toggleWish(){
+  if(!currentId) return;
+  wished[currentId] = !wished[currentId];
+  var wb = document.getElementById('p-wish');
+  if(wished[currentId]){
+    wb.textContent = 'Saved to wishlist';
+    wb.className = 'wishlist-btn saved';
+    var b = document.querySelector('[data-id="'+currentId+'"]');
+    if(b){ b.style.outline = '2px solid #639922'; }
+  } else {
+    wb.textContent = '+ Save to wishlist';
+    wb.className = 'wishlist-btn';
+    var b = document.querySelector('[data-id="'+currentId+'"]');
+    if(b){ b.style.outline = 'none'; }
+  }
+}
+
+function filterBooths(val){
+  val = val.toLowerCase();
+  document.querySelectorAll('.booth').forEach(function(b){
+    var name = b.querySelector('.bname') ? b.querySelector('.bname').textContent.toLowerCase() : '';
+    var ind = (b.dataset.industry||'').toLowerCase();
+    if(!val || name.includes(val) || ind.includes(val)){
+      b.style.opacity = '1';
+    } else {
+      b.style.opacity = '0.2';
+    }
+  });
+}
+
+function setFilter(el, val){
+  document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.booth').forEach(function(b){
+    if(val === 'all' || b.dataset.industry === val){
+      b.style.opacity = '1';
+    } else {
+      b.style.opacity = '0.2';
+    }
+  });
+}
+</script>
