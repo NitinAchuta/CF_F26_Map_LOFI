@@ -1,6 +1,5 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans)}
 .wrap{padding:16px;max-width:420px;margin:0 auto}
 .topbar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .topbar input{flex:1;padding:8px 10px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary)}
@@ -34,7 +33,6 @@ body{font-family:var(--font-sans)}
 .wishlist-btn{margin-top:8px;width:100%;padding:6px;font-size:12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-secondary);color:var(--color-text-primary);cursor:pointer}
 .wishlist-btn.saved{background:#EAF3DE;border-color:#639922;color:#27500A}
 .entry{font-size:10px;color:var(--color-text-tertiary);margin-top:10px;text-align:center}
-.entry-arrow{font-size:18px;margin-bottom:2px}
 .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .chip{font-size:11px;padding:3px 9px;border-radius:99px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer}
 .chip.active{background:#E6F1FB;border-color:#378ADD;color:#0C447C}
@@ -64,14 +62,14 @@ body{font-family:var(--font-sans)}
   <div class="floor">
     <div class="section-label">Section A</div>
     <div class="row">
-      <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="A1" onclick="showPanel('A1','ExxonMobil','A1','Energy','PETE, MEEN','Intern, Full-time',false,true)">
+      <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="A1" onclick="showPanel('A1','ExxonMobil','A1','Energy','PETE, MEEN, CHEN','Intern, Full-time',false,false)">
         <span class="bnum">A1</span><span class="bname">ExxonMobil</span>
       </div>
       <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="A2" onclick="showPanel('A2','Chevron','A2','Energy','PETE, CHEN','Intern, Co-op',false,false)">
         <span class="bnum">A2</span><span class="bname">Chevron</span>
       </div>
-      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="A3" onclick="showPanel('A3','Google','A3','Tech','CSCE, ECEN','Intern, Full-time',false,false)">
-        <span class="bnum">A3</span><span class="bname">Google</span>
+      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="A3" onclick="showPanel('A3','Texas Instruments','A3','Tech','ECEN, CSCE, MEEN','Intern, Full-time',false,false)">
+        <span class="bnum">A3</span><span class="bname">Texas Instruments</span>
       </div>
       <div class="booth b-empty" style="width:72px;height:52px" data-industry="" data-id="A4">
         <span class="bnum" style="font-size:9px">A4</span>
@@ -85,15 +83,15 @@ body{font-family:var(--font-sans)}
       <div class="booth b-aero" style="width:72px;height:52px" data-industry="aero" data-id="B1" onclick="showPanel('B1','Lockheed Martin','B1','Aerospace','AERO, MEEN, ECEN','Intern, Full-time',false,false)">
         <span class="bnum">B1</span><span class="bname">Lockheed Martin</span>
       </div>
-      <div class="booth b-cq" style="width:72px;height:52px;position:relative" data-industry="aero" data-id="B2" onclick="showPanel('B2','NASA','B2','Aerospace','All Engineering','Intern',true,true)">
+      <div class="booth b-cq" style="width:72px;height:52px;position:relative" data-industry="aero" data-id="B2" onclick="showPanel('B2','NASA','B2','Aerospace','All Engineering','Intern',true,false)">
         <span class="cq-badge">CQ</span>
         <span class="bnum">B2</span><span class="bname">NASA</span>
       </div>
-      <div class="booth b-civil" style="width:72px;height:52px" data-industry="civil" data-id="B3" onclick="showPanel('B3','AECOM','B3','Civil','CVEN, EVEN','Intern, Full-time',false,false)">
-        <span class="bnum">B3</span><span class="bname">AECOM</span>
+      <div class="booth b-civil" style="width:72px;height:52px" data-industry="civil" data-id="B3" onclick="showPanel('B3','Jacobs','B3','Civil','CVEN, EVEN, MEEN','Intern, Full-time',false,false)">
+        <span class="bnum">B3</span><span class="bname">Jacobs</span>
       </div>
-      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="B4" onclick="showPanel('B4','Microsoft','B4','Tech','CSCE, ECEN','Intern, Full-time',false,false)">
-        <span class="bnum">B4</span><span class="bname">Microsoft</span>
+      <div class="booth b-tech" style="width:72px;height:52px" data-industry="tech" data-id="B4" onclick="showPanel('B4','Raytheon','B4','Tech / Defense','ECEN, CSCE, AERO','Intern, Full-time',false,false)">
+        <span class="bnum">B4</span><span class="bname">Raytheon</span>
       </div>
     </div>
 
@@ -107,7 +105,7 @@ body{font-family:var(--font-sans)}
       <div class="booth b-energy" style="width:72px;height:52px" data-industry="energy" data-id="C2" onclick="showPanel('C2','Shell','C2','Energy','PETE, CHEN, MEEN','Co-op, Full-time',false,false)">
         <span class="bnum">C2</span><span class="bname">Shell</span>
       </div>
-      <div class="booth b-aero" style="width:72px;height:52px" data-industry="aero" data-id="C3" onclick="showPanel('C3','Boeing','C3','Aerospace','AERO, MEEN, ECEN','Intern, Full-time',false,true)">
+      <div class="booth b-aero" style="width:72px;height:52px" data-industry="aero" data-id="C3" onclick="showPanel('C3','Boeing','C3','Aerospace','AERO, MEEN, ECEN','Intern, Full-time',false,false)">
         <span class="bnum">C3</span><span class="bname">Boeing</span>
       </div>
       <div class="booth b-empty" style="width:72px;height:52px" data-industry="" data-id="C4">
@@ -116,7 +114,7 @@ body{font-family:var(--font-sans)}
     </div>
 
     <div class="entry">
-      <div class="entry-arrow">↑</div>
+      <div style="font-size:18px;margin-bottom:2px">↑</div>
       <div>Main entrance</div>
     </div>
   </div>
@@ -135,68 +133,42 @@ body{font-family:var(--font-sans)}
 </div>
 
 <script>
-var currentId = null;
-var wished = {};
-
-function showPanel(id,name,booth,ind,maj,pos,hasCQ,isWished){
-  currentId = id;
-  document.getElementById('p-name').textContent = name;
-  document.getElementById('p-booth').textContent = booth;
-  document.getElementById('p-ind').textContent = ind;
-  document.getElementById('p-maj').textContent = maj;
-  document.getElementById('p-pos').textContent = pos;
-  document.getElementById('p-cq').style.display = hasCQ ? 'block' : 'none';
-  var wb = document.getElementById('p-wish');
-  if(wished[id]){
-    wb.textContent = 'Saved to wishlist';
-    wb.className = 'wishlist-btn saved';
-  } else {
-    wb.textContent = '+ Save to wishlist';
-    wb.className = 'wishlist-btn';
-  }
-  var panel = document.getElementById('info-panel');
-  panel.classList.add('show');
+var currentId=null;
+var wished={};
+function showPanel(id,name,booth,ind,maj,pos,hasCQ){
+  currentId=id;
+  document.getElementById('p-name').textContent=name;
+  document.getElementById('p-booth').textContent=booth;
+  document.getElementById('p-ind').textContent=ind;
+  document.getElementById('p-maj').textContent=maj;
+  document.getElementById('p-pos').textContent=pos;
+  document.getElementById('p-cq').style.display=hasCQ?'block':'none';
+  var wb=document.getElementById('p-wish');
+  if(wished[id]){wb.textContent='Saved to wishlist';wb.className='wishlist-btn saved';}
+  else{wb.textContent='+ Save to wishlist';wb.className='wishlist-btn';}
+  document.getElementById('info-panel').classList.add('show');
 }
-
 function toggleWish(){
-  if(!currentId) return;
-  wished[currentId] = !wished[currentId];
-  var wb = document.getElementById('p-wish');
-  if(wished[currentId]){
-    wb.textContent = 'Saved to wishlist';
-    wb.className = 'wishlist-btn saved';
-    var b = document.querySelector('[data-id="'+currentId+'"]');
-    if(b){ b.style.outline = '2px solid #639922'; }
-  } else {
-    wb.textContent = '+ Save to wishlist';
-    wb.className = 'wishlist-btn';
-    var b = document.querySelector('[data-id="'+currentId+'"]');
-    if(b){ b.style.outline = 'none'; }
-  }
+  if(!currentId)return;
+  wished[currentId]=!wished[currentId];
+  var wb=document.getElementById('p-wish');
+  var b=document.querySelector('[data-id="'+currentId+'"]');
+  if(wished[currentId]){wb.textContent='Saved to wishlist';wb.className='wishlist-btn saved';if(b)b.style.outline='2px solid #639922';}
+  else{wb.textContent='+ Save to wishlist';wb.className='wishlist-btn';if(b)b.style.outline='none';}
 }
-
 function filterBooths(val){
-  val = val.toLowerCase();
+  val=val.toLowerCase();
   document.querySelectorAll('.booth').forEach(function(b){
-    var name = b.querySelector('.bname') ? b.querySelector('.bname').textContent.toLowerCase() : '';
-    var ind = (b.dataset.industry||'').toLowerCase();
-    if(!val || name.includes(val) || ind.includes(val)){
-      b.style.opacity = '1';
-    } else {
-      b.style.opacity = '0.2';
-    }
+    var name=b.querySelector('.bname')?b.querySelector('.bname').textContent.toLowerCase():'';
+    var ind=(b.dataset.industry||'').toLowerCase();
+    b.style.opacity=(!val||name.includes(val)||ind.includes(val))?'1':'0.2';
   });
 }
-
-function setFilter(el, val){
-  document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
+function setFilter(el,val){
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});
   el.classList.add('active');
   document.querySelectorAll('.booth').forEach(function(b){
-    if(val === 'all' || b.dataset.industry === val){
-      b.style.opacity = '1';
-    } else {
-      b.style.opacity = '0.2';
-    }
+    b.style.opacity=(val==='all'||b.dataset.industry===val)?'1':'0.2';
   });
 }
 </script>
